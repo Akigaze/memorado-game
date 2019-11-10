@@ -1,0 +1,56 @@
+{
+  "name": "memorado-game",
+  "version": "0.0.1",
+  "description": "",
+  "main": "babel.config.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "jest --config=jest.config.js",
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server --open",
+    "example.counter": "webpack-dev-server --open --config example/counter/webpack.config.example.counter.js",
+    "example.todolist": "webpack-dev-server --open --config example/todo-list/webpack.config.example.todolist.js",
+    "jest": "jest --config=jest.config.js --coverage",
+    "jest.counter": "jest --config=example/counter/jest.config.js",
+    "jest.todolist": "jest --config=example/todo-list/jest.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akigaze/memorado-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akigaze/memorado-game/issues"
+  },
+  "homepage": "https://github.com/Akigaze/memorado-game#readme",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-redux": "^6.0.0",
+    "react-router-dom": "^5.1.2",
+    "react-transition-group": "^4.3.0",
+    "redux": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest": "^24.9.0",
+    "jest-enzyme": "^7.1.2",
+    "redux-mock-store": "^1.5.3",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

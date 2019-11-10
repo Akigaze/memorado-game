@@ -1,0 +1,3 @@
+export const INCREASEMENT = "INCREASEMENT";
+
+export const DECREASEMENT = "DECREASEMENT";

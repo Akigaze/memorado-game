@@ -1,0 +1,160 @@
+body {
+    background: #ccc;
+}
+
+.container {
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: white;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.title {
+    margin: 20px 8px;
+}
+
+.new-todo-input {
+    margin: 16px 8px;
+}
+
+.input-text {
+    width: 80%;
+    padding: 4px;
+    margin-right: 2%;
+    border: 1px solid #a9a9a9;
+}
+
+.input-text:hover{
+    box-shadow: 0 0 4px #a9a9a9;
+    transition: 200ms;
+}
+
+.add-btn {
+    background-color: #fc999b;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 6px 0;
+    border: none;
+    width: 14%;
+    transition: 300ms;
+}
+
+.add-btn:hover {
+    background-color: #fb8789;
+    box-shadow: 0 0 2px #fc999b;
+    transition: 200ms;
+}
+
+.todo-group {
+    overflow-y: auto;
+    max-height: 300px;
+    margin: 0 8px 0 0;
+    min-height: 100px;
+}
+
+.todo-group .todo:nth-child(even) {
+    background-color: #f4ecec;
+}
+
+.todo {
+    display: flex; /*Flex布局*/
+    align-items: center; /*指定垂直居中*/
+    padding: 2px;
+    margin: 8px;
+}
+
+.todo span{
+    display: inline-block;
+    cursor: pointer;
+    /*width: fit-content;*/
+}
+
+.todo-undo {
+    transition: 200ms;
+    cursor: default;
+}
+
+.todo-completed {
+    color: gray;
+    text-decoration: line-through;
+    transition: 200ms;
+}
+
+.todo-undo:hover,
+.todo-completed:hover
+{
+    color: #555;
+    transition: 200ms;
+}
+
+.done-todo {
+    width: 18px;
+    height: 18px;
+    margin: 0 8px 0 0;
+}
+
+.todo-content{
+    display: flex;
+    flex: auto;
+    margin: 0;
+    align-items: flex-end;
+}
+
+.delete-icon{
+    text-align: center;
+    border-radius: 4px;
+    width: 16px;
+    height: 100%;
+    font-weight: bolder;
+    color: #555;
+    background-color: #fafafa;
+    transition: 200ms;
+}
+
+.delete-icon:hover{
+    background-color: #fb8789;
+    color: #FFF;
+    box-shadow: 0 0 2px #fc7f82;
+    transition: 200ms;
+}
+
+.filter-group {
+    margin: 20px 8px;
+    text-align: right;
+}
+
+.filter-group input {
+    margin-left: 12px;
+    display: inline-block;
+    padding: 6px 0;
+    border: none;
+    border-radius: 2px;
+    min-width: 92px;
+    font-size: 14px;
+}
+
+.filter-clicked {
+    font-weight: bold;
+    background: #ededed;
+    transition: 200ms;
+}
+
+.filter-clicked:hover {
+    background: #e5e5e5;
+    transition: 200ms;
+}
+
+.filter-unclicked {
+    color: #7a7a7a;
+    background: #f9f9f9;
+    transition: 200ms;
+}
+
+.filter-unclicked:hover {
+    color: #606060;
+    background: #f2f2f2;
+    transition: 200ms;
+}
