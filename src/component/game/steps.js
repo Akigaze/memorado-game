@@ -1,19 +1,53 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class Steps extends Component {
+import Step from "./step";
+import { arrayUtil as util } from "../../util/";
+import { STEP_STATUS } from "../../constant/super-memo";
+
+export class Steps extends Component {
   constructor(props) {
     super(props);
   }
 
+  convertSteps() {
+    const { targets, currentStep } = this.props;
+    return util.fill(new Array(targets), i => {
+      const status =
+        i === currentStep.index
+          ? currentStep.status
+          : i < currentStep.index
+          ? STEP_STATUS.FINISHED
+          : STEP_STATUS.READY;
+      return _.clone(status);
+    });
+  }
+
   render() {
-    const { steps } = this.props;
+    const steps = this.convertSteps();
     return (
       <div id="steps">
-        <div className="title">Your Rate of Progress </div>
+        <div className="title">Your Rate of Progress</div>
         {steps.map((step, i) => (
-          <div key={i} id="step" />
+          <Step key={i} step={step} />
         ))}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  const { params, currentStep } = state.superMemo;
+  return { targets: params.targets, currentStep };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: {}
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Steps);

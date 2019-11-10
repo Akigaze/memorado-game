@@ -36,13 +36,25 @@ body {
   min-width: 200px;
 }
 
-div#step {
+#step {
   width: 20px;
   height: 20px;
   display: inline-block;
-  border: 1px solid #444;
+  border: 1px solid #ccc;
   border-radius: 10px;
   margin: 2px;
+}
+
+#step.in-progress {
+  border: 1px solid #444;
+}
+#step.finished {
+  border: 1px solid #00bd98;
+  background-color: #00bd98;
+}
+#step.losing {
+  border: 1px solid #444;
+  background-color: #444;
 }
 
 .game {
