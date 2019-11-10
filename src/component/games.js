@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import SuperMemory from "./game/super-memo";
+
+import SuperMemory from "./game/super-memo/";
 
 export default class Games extends Component {
   constructor(props) {
@@ -13,9 +14,10 @@ export default class Games extends Component {
         <Route exact path="/">
           Games... ...
         </Route>
-        <Route path="/super-memo">
-          <SuperMemory />
-        </Route>
+        <Route
+          path="/super-memo"
+          component={({ location }) => <SuperMemory location={location} />}
+        />
       </Switch>
     );
   }

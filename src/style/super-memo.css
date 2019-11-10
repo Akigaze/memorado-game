@@ -1,4 +1,33 @@
 #super-memo {
-    border: 1px solid #c1c1c1;
-    border-radius: 10px;
+  border: 1px solid #c1c1c1;
+  border-radius: 10px;
+}
+
+#memo-grid {
+  padding: 5px;
+}
+
+#memo-piece {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+#memo-piece.active {
+}
+
+#memo-piece.silent {
+  border: 1px solid #eee;
+}
+
+#super-memo-header {
+  height: 100%;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#super-memo-header#steps {
 }

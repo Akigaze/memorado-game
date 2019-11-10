@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-import NavItem from "./nav-item";
 // import {connect} from "react-redux";
+import { NavLink } from "react-router-dom";
+
+import NavItem from "./nav-item";
 
 const GAMES = [
-    { id: "super-memo", name: "Super Memory", component: "" },
-    { id: "traffic-light", name: "Traffic Light", component: "" },
-    { id: "number-letter", name: "Number and Letter", component: "" },
-    { id: "pair", name: "Pair", component: "" },
-    { id: "step-stone", name: "Stepping Stone", component: "" }
+  { id: "super-memo", name: "Super Memory", component: "" },
+  { id: "traffic-light", name: "Traffic Light", component: "" },
+  { id: "number-letter", name: "Number and Letter", component: "" },
+  { id: "pair", name: "Pair", component: "" },
+  { id: "step-stone", name: "Stepping Stone", component: "" }
 ];
 
 export default class NavSideBar extends Component {

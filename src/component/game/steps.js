@@ -8,11 +8,11 @@ export default class Steps extends Component {
   render() {
     const { steps } = this.props;
     return (
-      <div>
-        Your Rate of Progress{" "}
-        {steps.map((step, i) => {
-          return <span key={i} id="step" />;
-        })}
+      <div id="steps">
+        <div className="title">Your Rate of Progress </div>
+        {steps.map((step, i) => (
+          <div key={i} id="step" />
+        ))}
       </div>
     );
   }
