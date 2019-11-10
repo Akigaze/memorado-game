@@ -10,6 +10,7 @@ export const PIECE_STATUS = {
 };
 
 export const PIECE_DELAY = 3000;
+export const RESTART_DELAY = 2000;
 
 export const QUERY_PARAMETER = {
   nrow: { name: "nrow", defaultValue: 4 },
@@ -22,4 +23,8 @@ export const STEP_STATUS = {
   IN_PROGRESS: { key: "IN_PROGRESS", className: "in-progress" },
   FINISHED: { key: "FINISHED", className: "finished" },
   LOSING: { key: "LOSING", className: "losing" }
+};
+
+STEP_STATUS.isEuqal = (s1, s2) => {
+  return s1.key === s2.key;
 };

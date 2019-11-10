@@ -3,13 +3,16 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import MemoryPiece from "./memo-piece";
-import { PIECE_TYPE } from "../../../constant/super-memo";
+import { PIECE_TYPE, STEP_STATUS } from "../../../constant/super-memo";
 
 const { SILENT, ACTIVE } = PIECE_TYPE;
 
 export class MemoryGrid extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      restart: false
+    };
   }
 
   generatePieces() {
@@ -23,8 +26,18 @@ export class MemoryGrid extends Component {
     return [];
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const restart = nextProps.times > this.props.times;
+    restart && this.setState({ restart: !this.state.restart });
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps !== this.props;
+  }
+
   render() {
     const { nrow, ncol, targets } = this.props;
+    const { restart } = this.state;
     const pieces = this.generatePieces();
     return (
       <div id="memo-grid">
@@ -32,7 +45,7 @@ export class MemoryGrid extends Component {
           return (
             <div className="row" key={i}>
               {ps.map((p, j) => (
-                <MemoryPiece key={j} type={p} />
+                <MemoryPiece key={j} type={p} refresh={restart} />
               ))}
             </div>
           );
@@ -43,8 +56,13 @@ export class MemoryGrid extends Component {
 }
 
 const mapStateToProps = state => {
-  const { params } = state.superMemo;
-  return { targets: params.targets, nrow: params.nrow, ncol: params.ncol };
+  const { params, times } = state.superMemo;
+  return {
+    targets: params.targets,
+    nrow: params.nrow,
+    ncol: params.ncol,
+    times
+  };
 };
 
 const mapDispatchToProps = dispatch => {

@@ -27,7 +27,7 @@ export class Steps extends Component {
     const steps = this.convertSteps();
     return (
       <div id="steps">
-        <div className="title">Your Rate of Progress</div>
+        <div className="title">Your Reset of Blocks</div>
         {steps.map((step, i) => (
           <Step key={i} step={step} />
         ))}

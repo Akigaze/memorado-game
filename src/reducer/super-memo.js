@@ -10,7 +10,8 @@ const initedState = {
   currentStep: {
     index: 0,
     status: STEP_STATUS.IN_PROGRESS
-  }
+  },
+  times: 1
 };
 
 const reducer = (state = initedState, action = {}) => {
@@ -24,6 +25,12 @@ const reducer = (state = initedState, action = {}) => {
     }
     case actionType.RESET_SUPER_MEMO_STATE: {
       return initedState;
+    }
+    case actionType.RESET_SUPER_MEMO_STEP: {
+      return { ...state, currentStep: initedState.currentStep };
+    }
+    case actionType.SUPER_MEMO_TIMES_UP: {
+      return { ...state, times: state.times + 1 };
     }
     default:
       return state;

@@ -19,3 +19,15 @@ export const reset = () => {
     type: actionType.RESET_SUPER_MEMO_STATE
   };
 };
+
+export const resetStep = () => {
+  return {
+    type: actionType.RESET_SUPER_MEMO_STEP
+  };
+};
+
+export const timesUp = () => {
+  return {
+    type: actionType.SUPER_MEMO_TIMES_UP
+  };
+};
