@@ -43,6 +43,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 10px;
   margin: 2px;
+  transition: all 800ms;
 }
 
 #step.in-progress {
@@ -52,9 +53,32 @@ body {
   border: 1px solid #00bd98;
   background-color: #00bd98;
 }
+#step.finished::after {
+  content: "";
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  width: 8px;
+  height: 4px;
+  display: block;
+  transform: translate(4px, 5px) rotate(-60deg);
+}
+
 #step.losing {
   border: 1px solid #444;
   background-color: #444;
+}
+#step.losing::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  display: block;
+  transform: translate(5px, 5px);
+  background: linear-gradient(
+      45deg, #fff0 0%, #fff0 43%, #fff 45%, #fff 55%, #fff0 57%, #fff0 100%
+    ),
+    linear-gradient(
+      135deg, #fff0 0%, #fff0 43%, #fff 45%, #fff 55%, #fff0 57%, #fff0 100%
+    );
 }
 
 .game {
