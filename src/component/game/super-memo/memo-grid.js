@@ -10,34 +10,31 @@ const { SILENT, ACTIVE } = PIECE_TYPE;
 export class MemoryGrid extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      restart: false
-    };
   }
 
   generatePieces() {
-    const { nrow, ncol, targets } = this.props;
-    if (nrow && ncol && targets) {
+    const { nrow, ncol, target } = this.props;
+    if (nrow && ncol && target) {
       const pieces = new Array(nrow * ncol).fill(SILENT);
-      const sampleindexes = _.sampleSize(Object.keys(pieces), targets);
+      const sampleindexes = _.sampleSize(Object.keys(pieces), target);
       sampleindexes.forEach(i => (pieces[i] = ACTIVE));
       return pieces;
     }
     return [];
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const restart = nextProps.times > this.props.times;
-    restart && this.setState({ restart: !this.state.restart });
-  }
+  UNSAFE_componentWillReceiveProps(nextProps) {}
 
   shouldComponentUpdate(nextProps) {
-    return nextProps !== this.props;
+    const { nrow, ncol, target, end } = this.props;
+    const { nrow: nrow_, ncol: ncol_, target: target_, end: end_ } = nextProps;
+    return (
+      nrow !== nrow_ || ncol !== ncol_ || target !== target_ || (end_ && !end)
+    );
   }
 
   render() {
-    const { nrow, ncol, targets } = this.props;
-    const { restart } = this.state;
+    const { nrow, ncol, target } = this.props;
     const pieces = this.generatePieces();
     return (
       <div id="memo-grid">
@@ -45,7 +42,7 @@ export class MemoryGrid extends Component {
           return (
             <div className="row" key={i}>
               {ps.map((p, j) => (
-                <MemoryPiece key={j} type={p} refresh={restart} />
+                <MemoryPiece key={j} type={p} />
               ))}
             </div>
           );
@@ -56,13 +53,9 @@ export class MemoryGrid extends Component {
 }
 
 const mapStateToProps = state => {
-  const { params, times } = state.superMemo;
-  return {
-    targets: params.targets,
-    nrow: params.nrow,
-    ncol: params.ncol,
-    times
-  };
+  const { params, end } = state.superMemo;
+  const { target, nrow, ncol } = params;
+  return { target, nrow, ncol, end };
 };
 
 const mapDispatchToProps = dispatch => {

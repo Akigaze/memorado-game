@@ -11,7 +11,7 @@ export const PIECE_DELAY = {
 
 export const PIECE_STATUS = {
   SILENT_ENTER: {
-    className: "silent",
+    className: "silent-enter",
     style: { backgroundColor: "white" },
     delay: 4000
   },
@@ -40,7 +40,7 @@ export const RESTART_DELAY = 2000;
 export const QUERY_PARAMETER = {
   nrow: { name: "nrow", defaultValue: 4 },
   ncol: { name: "ncol", defaultValue: 4 },
-  targets: { name: "targets", defaultValue: 4 }
+  target: { name: "target", defaultValue: 4 }
 };
 
 export const STEP_STATUS = {

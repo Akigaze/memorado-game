@@ -11,8 +11,8 @@ export class Steps extends Component {
   }
 
   convertSteps() {
-    const { targets, currentStep } = this.props;
-    return util.fill(new Array(targets), i => {
+    const { target, currentStep } = this.props;
+    return util.fill(new Array(target), i => {
       const status =
         i === currentStep.index
           ? currentStep.status
@@ -28,9 +28,7 @@ export class Steps extends Component {
     return (
       <div id="steps">
         <div className="title">Your Reset of Blocks</div>
-        {steps.map((step, i) => (
-          <Step key={i} step={step} />
-        ))}
+        {steps.map((step, i) => <Step key={i} step={step} /> )}
       </div>
     );
   }
@@ -38,7 +36,7 @@ export class Steps extends Component {
 
 const mapStateToProps = state => {
   const { params, currentStep } = state.superMemo;
-  return { targets: params.targets, currentStep };
+  return { target: params.target, currentStep };
 };
 
 const mapDispatchToProps = dispatch => {

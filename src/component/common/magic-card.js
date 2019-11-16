@@ -41,10 +41,13 @@ export default class MagicCard extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {}
 
-  componentDidUpdate({ status, statuses }) {
-    if (status !== this.props.status || statuses !== this.props.statuses) {
+  componentDidUpdate(prevProps) {
+    const { status: _status, statuses: _statuses } = prevProps
+    const statusChanged = _status !== this.props.status
+    const statusesChanged = _statuses !== this.props.statuses
+    if (statusChanged || statusesChanged) {
       this.setState({ status: this.initStatus() }, () => {
-        this.statusProceed();
+        statusesChanged && this.statusProceed();
       });
     }
   }
@@ -59,6 +62,7 @@ export default class MagicCard extends Component {
   };
 
   render() {
+    console.log("MagicCard render ...");
     const { status } = this.state;
     const { ID } = this.props;
     return (

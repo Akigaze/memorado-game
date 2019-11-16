@@ -26,14 +26,12 @@ export class MemoryPiece extends Component {
   }
 
   isInProgressStatus(status) {
-    return status === PIECE_STATUS.SILENT;
+    return status === PIECE_STATUS.SILENT && !this.props.end;
   }
 
   shouldRefresh(prevProps, curProps) {
-    return prevProps.refresh !== curProps.refresh;
+    return prevProps.end && !curProps.end;
   }
-
-  canClick() {}
 
   initStatusesByType() {
     const { NONE, SILENT_ENTER, SILENT, ACTIVE, ACTIVE_OUT } = PIECE_STATUS;
@@ -81,6 +79,7 @@ export class MemoryPiece extends Component {
   };
 
   render() {
+    console.log("MemoryPiece render ...");
     const { statuses, status } = this.state;
     return (
       <MagicCard
@@ -94,8 +93,8 @@ export class MemoryPiece extends Component {
 }
 
 const mapStateToProps = state => {
-  const { currentStep } = state.superMemo;
-  return { currentStep };
+  const { currentStep, end } = state.superMemo;
+  return { currentStep, end };
 };
 
 const mapDispatchToProps = (dispatch, state) => {

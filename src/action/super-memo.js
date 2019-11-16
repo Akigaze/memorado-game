@@ -7,10 +7,10 @@ export const updateStep = (index, status) => {
   };
 };
 
-export const initParams = ({ targets, nrow, ncol }) => {
+export const initParams = ({ target, nrow, ncol }) => {
   return {
     type: actionType.INIT_SUPER_MEMO_PARAMS,
-    payload: { targets, nrow, ncol }
+    payload: { target, nrow, ncol }
   };
 };
 
@@ -26,8 +26,14 @@ export const resetStep = () => {
   };
 };
 
-export const timesUp = () => {
+export const restart = () => {
   return {
-    type: actionType.SUPER_MEMO_TIMES_UP
+    type: actionType.SUPER_MEMO_GAME_RESTART
+  };
+};
+
+export const end = () => {
+  return {
+    type: actionType.SUPER_MEMO_GAME_END
   };
 };

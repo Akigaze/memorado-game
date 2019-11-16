@@ -3,7 +3,7 @@ import { STEP_STATUS } from "../constant/super-memo";
 
 const initedState = {
   params: {
-    targets: 0,
+    target: 0,
     nrow: 0,
     ncol: 0
   },
@@ -11,7 +11,8 @@ const initedState = {
     index: 0,
     status: STEP_STATUS.IN_PROGRESS
   },
-  times: 1
+  times: 1,
+  end: false
 };
 
 const reducer = (state = initedState, action = {}) => {
@@ -23,14 +24,17 @@ const reducer = (state = initedState, action = {}) => {
     case actionType.UPDATE_SUPER_MEMO_CURRENT_STEP: {
       return { ...state, currentStep: payload };
     }
-    case actionType.RESET_SUPER_MEMO_STATE: {
-      return initedState;
-    }
     case actionType.RESET_SUPER_MEMO_STEP: {
       return { ...state, currentStep: initedState.currentStep };
     }
-    case actionType.SUPER_MEMO_TIMES_UP: {
-      return { ...state, times: state.times + 1 };
+    case actionType.SUPER_MEMO_GAME_END: {
+      return { ...state, end: true };
+    }
+    case actionType.SUPER_MEMO_GAME_RESTART: {
+      return { ...state, end: false , times: state.times + 1};
+    }
+    case actionType.RESET_SUPER_MEMO_STATE: {
+      return initedState;
     }
     default:
       return state;

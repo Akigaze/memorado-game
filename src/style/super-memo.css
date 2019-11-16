@@ -63,7 +63,8 @@
   animation: 1s filp-out;
 }
 
-#memo-piece.silent {
+#memo-piece.silent,
+#memo-piece.silent-enter {
   animation: none;
 }
 

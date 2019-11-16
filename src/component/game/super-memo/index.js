@@ -13,7 +13,8 @@ import {
   initParams,
   reset,
   resetStep,
-  timesUp
+  restart,
+  end
 } from "../../../action/super-memo";
 
 export class SuperMemory extends Component {
@@ -30,17 +31,23 @@ export class SuperMemory extends Component {
     this.props.actions.initGameParams(this.params);
   }
 
+  UNSTAFE_componentWillReceiveProps(nextProps){
+
+  }
+
   componentDidUpdate(prevProps) {
-    if (!prevProps.again && this.props.again) {
-      setTimeout(() => this.props.actions.resetStep(), RESTART_DELAY);
+    if (!prevProps.end && this.props.end) {
+      this.props.actions.endGame();
+      setTimeout(() => this.props.actions.restartGame(), RESTART_DELAY);
     }
   }
 
   componentWillUnmount() {
-    this.props.actions.reset();
+    this.props.actions.resetGame();
   }
 
   render() {
+    console.log("SuperMemory render ...");
     return (
       <div id="super-memo" className="game">
         <div id="game-header">
@@ -57,9 +64,9 @@ export class SuperMemory extends Component {
 const mapStateToProps = state => {
   const { params, currentStep } = state.superMemo;
   return {
-    again:
+    end:
       STEP_STATUS.isEuqal(currentStep.status, STEP_STATUS.LOSING) ||
-      currentStep.index + 1 === params.targets
+      currentStep.index === params.target
   };
 };
 
@@ -67,10 +74,11 @@ const mapDispatchToProps = dispatch => {
   return {
     actions: {
       initGameParams: (...args) => dispatch(initParams.apply(null, args)),
-      reset: (...args) => dispatch(reset.apply(null, args)),
-      resetStep: (...args) => {
+      endGame: (...args) => dispatch(end.apply(null, args)),
+      resetGame: (...args) => dispatch(reset.apply(null, args)),
+      restartGame: (...args) => {
+        dispatch(restart.apply(null, args));
         dispatch(resetStep.apply(null, args));
-        dispatch(timesUp.apply(null, args));
       }
     }
   };
