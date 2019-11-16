@@ -23,6 +23,22 @@ describe("MagicCard", () => {
   };
   let statuses = [SILENT, ACTIVE, INCORRECT];
 
+  it("should render div with given id", () => {
+    magicCard = mount(<MagicCard ID="i-love-react" />);
+
+    expect(magicCard.children).toHaveLength(1);
+    expect(magicCard.childAt(0).prop("id")).toBe("i-love-react");
+    expect(magicCard.childAt(0).is("div")).toBeTruthy();
+  });
+
+  it("should render div with default id 'magic-card' when no given id", () => {
+    magicCard = mount(<MagicCard />);
+
+    expect(magicCard.children).toHaveLength(1);
+    expect(magicCard.childAt(0).prop("id")).toBe("magic-card");
+    expect(magicCard.childAt(0).is("div")).toBeTruthy();
+  });
+
   it("should render with the style of the first status when render", () => {
     magicCard = mount(<MagicCard statuses={statuses} />);
 
@@ -73,7 +89,7 @@ describe("MagicCard", () => {
     expect(_card.prop("style")).toEqual(SILENT.style);
   });
 
-  it("should render given status prop regardless statuses", function() {
+  it("should render given status prop regardless statuses", () => {
     magicCard = mount(<MagicCard statuses={statuses} status={ACTIVE} />);
 
     let _card = magicCard.find("#magic-card");
@@ -89,7 +105,7 @@ describe("MagicCard", () => {
     expect(_card.prop("style")).toEqual(ACTIVE.style);
   });
 
-  it("should render given status prop when it changed", function() {
+  it("should render given status prop when it changed", () => {
     magicCard = mount(<MagicCard statuses={statuses} status={ACTIVE} />);
 
     let _card = magicCard.find("#magic-card");
@@ -105,7 +121,7 @@ describe("MagicCard", () => {
     expect(_card.prop("style")).toEqual(SILENT.style);
   });
 
-  it("should call toggle prop when current status when click", function() {
+  it("should call toggle prop when current status when click", () => {
     const mockToggle = jest.fn();
     magicCard = mount(<MagicCard statuses={statuses} toggle={mockToggle} />);
 

@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
+const TOGGLE_FUNC = () => {};
 
 export default class MagicCard extends Component {
   constructor(props) {
@@ -47,9 +50,10 @@ export default class MagicCard extends Component {
 
   render() {
     const { status } = this.state;
+    const { ID } = this.props;
     return (
       <div
-        id="magic-card"
+        id={ID}
         className={status.className}
         style={status.style}
         onClick={this.clickCard}
@@ -57,3 +61,27 @@ export default class MagicCard extends Component {
     );
   }
 }
+
+MagicCard.propTypes = {
+  ID: PropTypes.string,
+  status: PropTypes.shape({
+    className: PropTypes.string,
+    style: PropTypes.object
+  }),
+  statuses: PropTypes.arrayOf(
+    PropTypes.shape({
+      className: PropTypes.string,
+      style: PropTypes.object,
+      delay: PropTypes.number
+    })
+  ),
+  delay: PropTypes.number,
+  toggle: PropTypes.func
+};
+
+MagicCard.defaultProps = {
+  ID: "magic-card",
+  statuses: [],
+  delay: 0,
+  toggle: TOGGLE_FUNC
+};
