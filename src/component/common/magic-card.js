@@ -16,7 +16,7 @@ export default class MagicCard extends Component {
     return status || (delay > 0 ? {} : statuses[0] || {});
   }
 
-  statusProceed = () => {
+  _statusProceed = () => {
     const { statuses } = this.props;
     const { status } = this.state;
     const nextStatus = statuses[statuses.indexOf(status) + 1];
@@ -26,16 +26,26 @@ export default class MagicCard extends Component {
       }, status.delay);
   };
 
-  componentDidMount() {
+  statusProceed() {
     const { status, delay } = this.props;
     if (!status) {
-      delay > 0 ? setTimeout(this.statusProceed, delay) : this.statusProceed();
+      delay > 0
+        ? setTimeout(this._statusProceed, delay)
+        : this._statusProceed();
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.status !== this.props.status) {
-      this.setState({ status: nextProps.status || {} });
+  componentDidMount() {
+    this.statusProceed();
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {}
+
+  componentDidUpdate({ status, statuses }) {
+    if (status !== this.props.status || statuses !== this.props.statuses) {
+      this.setState({ status: this.initStatus() }, () => {
+        this.statusProceed();
+      });
     }
   }
 
