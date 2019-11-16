@@ -11,7 +11,6 @@ export default class Step extends Component {
   }
 
   render() {
-    console.log("Step render ...");
     const { step } = this.props;
     return <div id="step" className={step.className} />;
   }

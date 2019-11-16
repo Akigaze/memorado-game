@@ -43,7 +43,22 @@ export class MemoryPiece extends Component {
 
   componentDidMount() {}
 
-  UNSAFE_componentWillReceiveProps(nextProps) {}
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (!this.props.end && nextProps.end && this.isActiveType()) {
+      setTimeout(() => {
+        this.setState({ status: PIECE_STATUS.ACTIVE });
+      }, PIECE_DELAY.ANIMATION_DELAY);
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { status, statuses } = this.state;
+    return (
+      this.shouldRefresh(this.props, nextProps) ||
+      status !== nextState.status ||
+      statuses !== nextState.statuses
+    );
+  }
 
   componentDidUpdate(prevProps) {
     if (this.shouldRefresh(prevProps, this.props)) {
@@ -62,15 +77,6 @@ export class MemoryPiece extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { status, statuses } = this.state;
-    return (
-      this.shouldRefresh(this.props, nextProps) ||
-      status !== nextState.status ||
-      statuses !== nextState.statuses
-    );
-  }
-
   clickMagicCard = status => {
     if (this.isInProgressStatus(status)) {
       const { currentStep } = this.props;
@@ -86,7 +92,6 @@ export class MemoryPiece extends Component {
   };
 
   render() {
-    console.log("MemoryPiece render ...");
     const { statuses, status, refresh } = this.state;
     return (
       <MagicCard

@@ -47,7 +47,6 @@ export class SuperMemory extends Component {
   }
 
   render() {
-    console.log("SuperMemory render ...");
     return (
       <div id="super-memo" className="game">
         <div id="game-header">

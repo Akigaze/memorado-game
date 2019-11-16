@@ -35,7 +35,7 @@ export const PIECE_STATUS = {
   }
 };
 
-export const RESTART_DELAY = 2000;
+export const RESTART_DELAY = 2500;
 
 export const QUERY_PARAMETER = {
   nrow: { name: "nrow", defaultValue: 4 },

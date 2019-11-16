@@ -61,7 +61,6 @@ export default class MagicCard extends Component {
   };
 
   render() {
-    console.log("MagicCard render ...");
     const { id } = this.props;
     const status = this.currentStatus();
     return (
