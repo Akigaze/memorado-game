@@ -5,11 +5,22 @@ export const PIECE_TYPE = {
 
 export const PIECE_STATUS = {
   SILENT: { className: "silent", color: "white" },
-  ACTIVE: { className: "active`", color: "#00bd98" },
-  INCORRECT: { className: "incorrect", color: "grey" }
+  ACTIVE: { className: "active", color: "#00bd98" },
+  ACTIVE_OUT: { className: "active-out", color: "white" },
+  INCORRECT: { className: "incorrect", color: "grey" },
+  NONE: { color: "white" }
 };
 
-export const PIECE_DELAY = 3000;
+PIECE_STATUS.ACTIVE.next = PIECE_STATUS.ACTIVE_OUT;
+PIECE_STATUS.ACTIVE_OUT.next = PIECE_STATUS.SILENT;
+PIECE_STATUS.SILENT.next = PIECE_STATUS.SILENT;
+
+export const PIECE_DELAY = {
+  DEFAULT: 500,
+  ANIMATION_DELAY: 1000,
+  TO_IN_PROGRESS: 3000
+};
+
 export const RESTART_DELAY = 2000;
 
 export const QUERY_PARAMETER = {

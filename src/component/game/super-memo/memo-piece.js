@@ -15,12 +15,12 @@ export class MemoryPiece extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: this.initStatus(),
+      status: PIECE_STATUS.NONE,
       inProgress: false
     };
   }
 
-  initStatus() {
+  initStatusByType() {
     return this.isActiveType() ? PIECE_STATUS.ACTIVE : PIECE_STATUS.SILENT;
   }
 
@@ -28,40 +28,52 @@ export class MemoryPiece extends Component {
     return this.props.type === ACTIVE;
   }
 
-  toBeInProgress(delay) {
+  toBeReady() {
     setTimeout(() => {
-      this.setState({ status: PIECE_STATUS.SILENT, inProgress: true });
-    }, delay || PIECE_DELAY);
+      this.setState({ status: this.initStatusByType() }, () =>
+        setTimeout(this.toBeInProgress, PIECE_DELAY.TO_IN_PROGRESS)
+      );
+    }, PIECE_DELAY.DEFAULT);
   }
 
+  toBeInProgress = () => {
+    const nextStatus = this.state.status.next;
+    const isSilent = nextStatus === PIECE_STATUS.SILENT;
+    this.setState({ status: nextStatus, inProgress: isSilent }, () => {
+      isSilent || setTimeout(this.toBeInProgress, PIECE_DELAY.ANIMATION_DELAY);
+    });
+  };
+
   componentDidMount() {
-    this.toBeInProgress();
+    this.toBeReady();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.refresh !== this.props.refresh) {
       this.setState(
         {
-          status: this.initStatus(),
+          status: PIECE_STATUS.NONE,
           inProgress: false
         },
-        this.toBeInProgress
+        this.toBeReady
       );
     }
   }
 
   clickPiece = event => {
-    const { status, inProgress } = this.state;
+    const { status, inProgress, end } = this.state;
     if (inProgress) {
       const { currentStep } = this.props;
       const isRightPiece = this.isActiveType();
       this.setState({
-        status: isRightPiece ? PIECE_STATUS.ACTIVE : PIECE_STATUS.INCORRECT
+        status: isRightPiece ? PIECE_STATUS.ACTIVE : PIECE_STATUS.INCORRECT,
+        inProgress: isRightPiece
       });
-      this.props.actions.updateProgress(
-        currentStep.index + isRightPiece,
-        isRightPiece ? STEP_STATUS.IN_PROGRESS : STEP_STATUS.LOSING
-      );
+      inProgress &&
+        this.props.actions.updateProgress(
+          currentStep.index + isRightPiece,
+          isRightPiece ? STEP_STATUS.IN_PROGRESS : STEP_STATUS.LOSING
+        );
     }
   };
 
