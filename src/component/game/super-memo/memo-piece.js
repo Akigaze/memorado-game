@@ -17,7 +17,8 @@ export class MemoryPiece extends Component {
     super(props);
     this.state = {
       status: undefined,
-      statuses: this.initStatusesByType()
+      statuses: this.initStatusesByType(),
+      refresh: false
     };
   }
 
@@ -48,10 +49,16 @@ export class MemoryPiece extends Component {
     if (this.shouldRefresh(prevProps, this.props)) {
       const nextStatuses = this.initStatusesByType();
       nextStatuses.unshift(PIECE_STATUS.END);
-      this.setState({
-        status: undefined,
-        statuses: nextStatuses
-      });
+      this.setState(
+        {
+          status: undefined,
+          statuses: nextStatuses,
+          refresh: true
+        },
+        () => {
+          this.setState({ refresh: false });
+        }
+      );
     }
   }
 
@@ -80,12 +87,13 @@ export class MemoryPiece extends Component {
 
   render() {
     console.log("MemoryPiece render ...");
-    const { statuses, status } = this.state;
+    const { statuses, status, refresh } = this.state;
     return (
       <MagicCard
-        ID="memo-piece"
+        id="memo-piece"
         status={status}
         statuses={statuses}
+        reset={refresh}
         toggle={this.clickMagicCard}
       />
     );

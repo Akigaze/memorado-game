@@ -7,31 +7,29 @@ export default class MagicCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: this.initStatus()
+      index: 0
     };
   }
 
-  initStatus() {
-    const { status, delay, statuses } = this.props;
-    return status || (delay > 0 ? {} : statuses[0] || {});
+  currentStatus() {
+    const { status, statuses } = this.props;
+    return status || statuses[this.state.index] || {};
   }
 
   _statusProceed = () => {
     const { statuses } = this.props;
-    const { status } = this.state;
-    const nextStatus = statuses[statuses.indexOf(status) + 1];
-    nextStatus &&
+    const status = this.currentStatus();
+    const nextIndex = statuses.indexOf(status) + 1;
+    nextIndex < statuses.length &&
       setTimeout(() => {
-        this.setState({ status: nextStatus }, this.statusProceed);
+        this.setState({ index: nextIndex }, this.statusProceed);
       }, status.delay);
   };
 
   statusProceed() {
-    const { status, delay } = this.props;
+    const { status } = this.props;
     if (!status) {
-      delay > 0
-        ? setTimeout(this._statusProceed, delay)
-        : this._statusProceed();
+      this._statusProceed();
     }
   }
 
@@ -41,33 +39,34 @@ export default class MagicCard extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {}
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const { status, reset } = this.props;
+    return (
+      status !== nextProps.status ||
+      this.state.index !== nextState.index ||
+      (!reset && nextProps.reset)
+    );
+  }
+
   componentDidUpdate(prevProps) {
-    const { status: _status, statuses: _statuses } = prevProps
-    const statusChanged = _status !== this.props.status
-    const statusesChanged = _statuses !== this.props.statuses
-    if (statusChanged || statusesChanged) {
-      this.setState({ status: this.initStatus() }, () => {
-        statusesChanged && this.statusProceed();
+    if (!prevProps.reset && this.props.reset) {
+      this.setState({ index: 0 }, () => {
+        this.statusProceed();
       });
     }
   }
 
   clickCard = () => {
-    const { toggle } = this.props;
-    const { status } = this.state;
-
-    if (typeof toggle === "function") {
-      toggle(status);
-    }
+    this.props.toggle(this.currentStatus());
   };
 
   render() {
     console.log("MagicCard render ...");
-    const { status } = this.state;
-    const { ID } = this.props;
+    const { id } = this.props;
+    const status = this.currentStatus();
     return (
       <div
-        id={ID}
+        id={id}
         className={status.className}
         style={status.style}
         onClick={this.clickCard}
@@ -77,7 +76,7 @@ export default class MagicCard extends Component {
 }
 
 MagicCard.propTypes = {
-  ID: PropTypes.string,
+  id: PropTypes.string,
   status: PropTypes.shape({
     className: PropTypes.string,
     style: PropTypes.object
@@ -89,13 +88,13 @@ MagicCard.propTypes = {
       delay: PropTypes.number
     })
   ),
-  delay: PropTypes.number,
+  reset: PropTypes.bool,
   toggle: PropTypes.func
 };
 
 MagicCard.defaultProps = {
-  ID: "magic-card",
+  id: "magic-card",
   statuses: [],
-  delay: 0,
+  reset: false,
   toggle: TOGGLE_FUNC
 };
