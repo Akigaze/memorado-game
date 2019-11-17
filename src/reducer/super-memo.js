@@ -5,7 +5,6 @@ const initedState = {
 };
 
 const reducer = (state = initedState, action = {}) => {
-  console.log("SuperMemo reducer ...");
   switch (action.type) {
     case actionType.LEVEL_UP: {
       return { level: state.level + 1 };

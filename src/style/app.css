@@ -35,3 +35,25 @@ body {
   max-width: 400px;
   min-width: 200px;
 }
+
+.game {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.game > #game-header {
+  flex-basis: 100px;
+}
+
+.game > #game-content {
+  flex-grow: 1;
+}
+
+#game-header {
+}
+
+#game-content {
+  background-color: aliceblue;
+}
