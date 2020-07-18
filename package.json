@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Akigaze/memorado-game#readme",
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-redux": "^6.0.0",
